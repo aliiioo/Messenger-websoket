@@ -1,0 +1,88 @@
+﻿@model Core.DTOs.AddProductVM
+@{
+    ViewData["Title"] = "افزودن ";
+}
+<div class="container" style="direction:rtl;text-align:justify">
+
+    <div class="row ">
+        <form method="post" enctype="multipart/form-data">
+            <div class="col-md-12 col-12">
+                <h2>اطلاعات <span style="color: #FFD333"> </span></h2>
+                <hr />
+                <div class="form-group ">
+                    <label>اسم </label>
+                    <input type="text" asp-for="@Model.ShopTitle" class="form-control" required>
+                    <span asp-validation-for="@Model.ShopTitle"></span>
+                </div>
+                <div class="form-group">
+                    <label>گروه</label>
+                    <select class="form-control" asp-for="@Model.GroupId" asp-items="@(ViewData["Groups"] as SelectList)"></select>
+                    <span asp-validation-for="@Model.GroupId"></span>
+                </div>
+                <input  type="hidden" name="username" value="@User.Identity.Name"/>
+              @*  <div class="form-group">
+                    <label>درباره محصول</label>
+                    <textarea class="form-control" asp-for="@Model.Description" rows="10" name="Sll" id="sl1"></textarea>
+                    <span asp-validation-for="@Model.Description"></span>
+                </div>*@
+               @* <div class="form-group">
+                    <label>قیمت </label>
+                    <input type="number" asp-for="@Model.Price" value="0" class="form-control" />
+                    <span asp-validation-for="@Model.Price"></span>
+                </div>*@
+                @*<div class="form-group">
+                    <label>تعداد </label>
+                    <input type="number" asp-for="@Model.Number" value="0" class="form-control" />
+                    <span asp-validation-for="@Model.Number"></span>
+                </div>*@
+              @*  <div class="form-group">
+                    <label>رنگ ها</label>
+                    <input type="text" asp-for="@Model.Color" class="form-control">
+                    <p class="help-block">کلمات را با - جدا کنید</p>
+                    <span asp-validation-for="@Model.Color"></span>
+                </div>*@
+              @*  <div class="form-group">
+                    <label>سایز</label>
+                    <input type="text" asp-for="@Model.Size" class="form-control">
+                    <p class="help-block">کلمات را با - جدا کنید</p>
+                    <span asp-validation-for="@Model.Size"></span>
+                </div>
+                <div class="form-group">
+                    <label>کلمات کلیدی دوره</label>
+                    <input type="text" asp-for="@Model.Tag" class="form-control">
+                    <p class="help-block">کلمات را با - جدا کنید</p>
+                    <span asp-validation-for="@Model.Tag"></span>
+                </div>
+                <div class="form-group">
+                    <label>تاریخ </label>
+                    <input type="datetime-local" asp-for="@Model.CreatDate" />
+                    <span asp-validation-for="@Model.CreatDate"></span>
+                </div>*@
+                <div class="col-md-4">
+                    <p></p>
+                    <img id="imgCourse" class="thumbnail" src="/UserAvatar/Defult.jpg" />
+                    <div class="form-group">
+                        <label>انتخاب تصویر</label>
+                        <input type="file" name="imgCourseUp" id="imgCourseUp">
+                    </div>
+                </div>
+                <hr />
+                <input type="submit" value="ذخیره اطلاعات" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script>
+
+        CKEDITOR.replace('Sll', {
+            customConfig: '/js/Config.js'
+        });
+
+    </script>
+}

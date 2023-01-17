@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Multi_Shop.Context.Entites.CartIidd>
+@{ 
+    int totlaPrice = 0;
+}
+<div class="container">
+
+
+    @if (Model.Count() < 1)
+    {
+        <h2 style="text-align:center">لیست خریدی یافت <span style="color:red">نشد</span></h2>
+        <hr />
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <div class="card mt-2" style="direction:rtl">
+
+                <div class="row">
+                    <div class="card-body col-6" style="display:flex">
+                        اسم : <b>@item.ProductName</b>
+
+                    </div>
+                    <div class="col-6">
+                        <img src="~/img/Products/@(item.ImgName)" style="width: 10rem; border-radius: 100px; " alt="Alternate Text" />
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <p style="display:flex">
+                        سایز: <b>@item.Sizing</b>
+                    </p><p style="display:flex">
+                        رنگ: <b>@item.Coloring</b>
+
+                    </p>
+                    <p style="display:flex">تعداد : <b>@item.Numbers</b><br /></p>
+                    <p style="display:flex">
+                        قیمت هر محصول
+                        : <b>@item.Price</b>
+                    </p>
+                    @{
+                        totlaPrice += int.Parse(item.Price)* item.Numbers;
+                    }
+                    <div>
+                        <a asp-action="DeleteCartJust1" asp-route-id="@item.CarttId"
+                           class="btn btn-outline-danger">حذف</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+<br /><br />
+<div style="direction:rtl;text-align:right">
+    <div>
+        قیمت نهایی = @totlaPrice
+    </div>
+    <br />
+    <a class="btn btn-success" asp-action="RemoveAllListOfCart">خرید و پرداخت</a>
+</div>
+</div>
+
+
+
+
+

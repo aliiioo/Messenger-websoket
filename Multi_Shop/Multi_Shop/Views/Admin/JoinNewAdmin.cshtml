@@ -1,0 +1,20 @@
+﻿@model int
+<div class="container" style="direction:rtl;text-align:justify">
+
+    <div class="row ">
+        <form asp-action="JoinNewAdmin" method="post" enctype="multipart/form-data">
+            <div class="col-md-12 col-12">
+                <h2>افزودن ادمین جدید </h2>
+                <hr />
+                <div class="form-group ">
+                    <input type="hidden" value="@Model" data="@Model" name="GroId" />
+                    <label>نام کاربری</label>
+                    <input type="text" name="UserAdmin" class="form-control" required>
+
+                </div>
+                <input type="submit" value="ذخیره اطلاعات" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+</div>

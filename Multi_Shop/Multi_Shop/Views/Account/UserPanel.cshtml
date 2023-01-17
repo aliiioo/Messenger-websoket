@@ -1,0 +1,25 @@
+﻿@model Multi_Shop.Models.UserVMForAdmin
+
+<div class="container">
+
+    <div class="card mt-2">
+
+        <div class="card-body">
+            <img src="~/Users/@(Model.Email).jpg" width="100px" />
+        </div>
+        <div class="card-body">
+            User Email : <b>@Model.Email</b>
+        </div>
+        <div class="card-footer">
+            <a asp-controller="UserManager" asp-action="EditUser" asp-route-id="@Model.Id"
+               class="btn btn-primary">Edit Username</a>
+        </div>
+        <form method="post" action="ChangePhoto" enctype="multipart/form-data">
+            <input type="file" name="img" />
+            <input type="hidden" name="email" value="@Model.Email" data="@Model.Email" />
+            <br />
+            <input type="submit" value="ارسال" />
+        </form>
+    </div>
+
+</div>

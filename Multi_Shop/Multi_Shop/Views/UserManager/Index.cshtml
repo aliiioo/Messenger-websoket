@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@inject SignInManager<IdentityUser> signmanager;
+@model List<Core.DTOs.UserVMforAdmin>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container">
+    <a asp-action="AddRole" class="btn btn-primary">Add Role</a>
+
+    @if (!Model.Any())
+    {
+        <h3>کاربری یافت نشد</h3>
+    }
+    else
+    {
+        for (int i = 0; i < Model.Count; i++)
+        {
+            <div class="card mt-2">
+                
+                <div class="card-body">
+                    User Email : <b>@Model[i].Email</b>
+                </div>
+                <div class="card-footer">
+                    <form asp-action="DeleteUser" asp-route-id="@Model[i].Id" method="post">
+
+                        <a asp-action="EditUser" asp-route-id="@Model[i].Id"
+                           class="btn btn-primary">Edit Username</a>
+
+                        <a asp-action="AddUserToRole" asp-route-id="@Model[i].Id"
+                           class="btn btn-primary">Add to role</a>
+                        <a asp-action="RemoveUserFromRole" asp-route-id="@Model[i].Id"
+                           class="btn btn-danger">Remove From role</a>
+
+                        <button type="submit" class="btn btn-danger">Delete user</button>
+                    </form>
+                </div>
+            </div>
+        }
+    }
+
+
+
+</div>

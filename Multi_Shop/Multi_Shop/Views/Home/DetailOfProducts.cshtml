@@ -1,0 +1,516 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@inject SignInManager<IdentityUser> signmanager;
+@model Multi_Shop.Context.Entites.Shop
+
+
+<div class="container-fluid pb-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-2 mb-30">
+            <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                <div class="bg-light">
+                    <div class="carousel-item active">
+                        <img src="~/img/Products/@(Model.ShopImg)" alt="Image" style="width:150px;">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-10 h-auto mb-30">
+            <div class="h-20 bg-light p-30">
+                <h3>@Model.ShopTitle</h3>
+                <a class="btn btn-primary px-3" asp-controller="Admin" asp-action="JoinNewAdmin" asp-route-GroupId="@ViewBag.Idd" asp-route-username="@User.Identity.Name">New Admin for This</a>
+                <a class="btn btn-primary px-3" asp-controller="Home" asp-action="Join" asp-route-proid="@ViewBag.Idd" asp-route-Username="@User.Identity.Name">+Join</a>
+                @*  <div class="d-flex mb-3">
+                <div class="text-primary mr-2">
+                <small class="fas fa-star"></small>
+                <small class="fas fa-star"></small>
+                <small class="fas fa-star"></small>
+                <small class="fas fa-star"></small>
+                <small class="fas fa-star"></small>
+                </div>
+
+                </div>*@
+                @* <div><h3 class="pt-1"><a style="color:red" asp-route-iidd="@Model.ShopId" asp-action="Like" asp-controller="Home">Like </a><small>@Model.Like</small></h3></div>
+                <hr />
+                <h3 class="font-weight-semi-bold mb-4">$@Model.Price</h3>
+                <p class="mb-4">
+                @Html.Raw(Model.Description)
+                </p>*@
+                <form asp-action="AddCart" method="post">
+                    @*     <input type="hidden" name="ProName" value="@Model.ShopTitle" />
+                    <input type="hidden" name="Img" value="@Model.ShopImg" />
+                    <input type="hidden" name="id" value="@Model.ShopId" />
+                    <input type="hidden" name="Price" value="@Model.Price" />
+                    *@
+                    <div class="d-flex mb-3">
+                        @*<strong class="text-dark mr-3">Sizes:</strong>
+                        @{
+                        int i = 1;
+                        }
+                        @foreach (var item in ViewBag.Colo)
+                        {
+                        <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" value="@item" id="size-@i" name="color">
+                        <label class="custom-control-label" for="size-@i">@item</label>
+                        </div>
+                        <input type="hidden" @(i = i + 1) />
+                        }*@
+                        @*<form>
+                        <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="size-1" name="size">
+                        <label class="custom-control-label" for="size-1">XS</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="size-2" name="size">
+                        <label class="custom-control-label" for="size-2">S</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="size-3" name="size">
+                        <label class="custom-control-label" for="size-3">M</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="size-4" name="size">
+                        <label class="custom-control-label" for="size-4">L</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="size-5" name="size">
+                        <label class="custom-control-label" for="size-5">XL</label>
+                        </div>
+                        </form>*@
+                    </div>
+                    <div class="d-flex mb-4">
+                        @*<strong class="text-dark mr-3">Colors:</strong>
+                        @{
+                        int j = 1;
+                        }
+                        @foreach (var item in ViewBag.Siz)
+                        {
+                        <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" value="@item" id="color-@j" name="size">
+                        <label class="custom-control-label" for="color-@j">@item</label>
+                        </div>
+                        <input type="hidden" @(j = j + 1) />
+                        }*@
+                        @*<form>
+                        <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="color-1" name="color">
+                        <label class="custom-control-label" for="color-1">Black</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="color-2" name="color">
+                        <label class="custom-control-label" for="color-2">White</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="color-3" name="color">
+                        <label class="custom-control-label" for="color-3">Red</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="color-4" name="color">
+                        <label class="custom-control-label" for="color-4">Blue</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="color-5" name="color">
+                        <label class="custom-control-label" for="color-5">Green</label>
+                        </div>
+                        </form>*@
+                    </div>
+                    @*
+                    <div class="d-flex align-items-center mb-4 pt-2">
+                    <div class="input-group quantity mr-3" style="width: 130px;">
+                    <input type="number" class="form-control bg-secondary border-0 text-center" name="NumberOfPro" value="1">
+                    </div>
+                    @if (Model.Number < 1)
+                    {
+                    <input class="btn btn-primary px-3 fa fa-shopping-cart mr-1" disabled type="submit" value="Add TO Cart">
+                    }
+                    else
+                    {
+                    <input class="btn btn-primary px-3 fa fa-shopping-cart mr-1" type="submit"  value="Add TO Cart">
+                    }
+                    </div>*@
+                </form>
+                @*<div class="d-flex pt-2">
+                <strong class="text-dark mr-2">Share on:</strong>
+                <div class="d-inline-flex">
+                <a class="text-dark px-2" href="https://www.facebook.com/sharer/sharer.php?u=https://localhost:44340/Home/DetailOfProducts/@Model.ShopId">
+                <i class="fab fa-facebook-f"></i>
+                </a>
+                <a class="text-dark px-2" href="https://twitter.com/intent/tweet?url=https://localhost:44340/Home/DetailOfProducts/@Model.ShopId">
+                <i class="fab fa-twitter"></i>
+                </a>
+                </div>
+                </div>*@
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <div class="row px-xl-12">
+        <div class="col">
+            <div class="bg-light p-30">
+                <div class="nav nav-tabs mb-4">
+                    <a class="nav-item nav-link text-dark " data-toggle="tab" href="#tab-pane-3"> (@ViewBag.Num_comment)پیام ها</a>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane fade" id="tab-pane-3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="mb-4" style="text-align:end;">پیام</h4>
+                                @* <small>نظر خود رو در باکس پایین بنویسید *</small>*@
+                                <hr />
+                                @if (ViewBag.GroupId == 2)
+                                {
+                                    if (ViewBag.permission == true)
+                                    {
+                                        <form asp-action="CreatComment" method="get">
+                                            <div class="form-group">
+                                                <label for="message">اسم</label>
+                                                <input name="nam" id="sl1" class="form-control" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="message">پیام شما *</label>
+                                                <textarea name="Sll" id="sl1" rows="10" class="form-control"></textarea>
+                                            </div>
+
+                                            <input type="hidden" name="Por" value="@Model.ShopId" />
+                                            <div class="form-group mb-0">
+                                                <input type="submit" value="ارسال" class="btn btn-primary px-3">
+                                            </div>
+                                        </form>
+                                    }
+                                }
+                                else if (ViewBag.GroupId == 1)
+                                {
+                                    <form asp-action="CreatComment" method="get">
+                                        <div class="form-group">
+                                            <label for="message">اسم</label>
+                                            <input name="nam" id="sl1" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="message">پیام شما *</label>
+                                            <textarea name="Sll" id="sl1" rows="10" class="form-control"></textarea>
+                                        </div>
+                                        <input type="hidden" name="Por" value="@Model.ShopId" />
+                                        <div class="form-group mb-0">
+                                            <input type="submit" value="ارسال" class="btn btn-primary px-3">
+                                        </div>
+                                    </form>
+                                }
+
+                                <div class="col-md-12">
+                                    <h4 class="mb-4">پیام ها</h4>
+                                    @foreach (var item in ViewBag.Commnt)
+                                    {
+                                        <div class="media mb-4">
+
+                                            <img src="~/img/Products/images.png" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                            <div class="media-body">
+
+                                                <h4>@(item.UserName)  <small> -   <i>@(item.CreateDate)</i></small></h4> @if (User.IsInRole("Onwer") || User.IsInRole("Admin"))
+                                                {
+                                                    <a asp-action="DeleteComment" asp-route-id="@item.CommentId" asp-route-ProIId="@Model.ShopId" class="btn btn-outline-danger">حذف</a>
+                                                }
+                                                <p>@Html.Raw(item.Comment)</p>
+
+                                            </div>
+
+                                        </div>
+                                    }
+                                </div>
+
+                                
+                           @*     @if (ViewBag.GroupId == 2)
+                                {
+                                    if (ViewBag.permission == true)
+                                    {
+                                        <div class="col-md-12 col-12">
+                                            <h2>اطلاعات <span style="color: #FFD333"> </span></h2>
+                                            <hr />
+                                            <div class="form-group ">
+                                                <label>اسم </label>
+                                                <input type="text" id="textUsername" class="form-control" />
+                                                <br />
+                                                <input type="button" class="btn btn-primary" value="Connect" onclick="connect()" />
+                                            </div>
+                                            <div class="form-group ">
+                                         
+                                            </div>
+                                            <div class="form-group ">
+                                                <label>پیام </label>
+                                             
+                                                <textarea class="form-control" rows="10" id="txtmsg"></textarea>
+                                            </div>
+                                            <input type="button" class="btn btn-primary" value="Send" onclick="SendMsg()" />
+                                            <br />
+                                            <div class="col-lg-2 mb-30">
+                                            </div>
+                                            <input type="button" asp-controller="Home" asp-action="saveMessage" class="btn btn-primary px-3" value="close connection" onclick="Closews()" />
+                                            <br />
+
+
+                                            <form method="post" asp-action="uploader" asp-controller="Home" enctype="multipart/form-data">
+                                                <div>
+                                                    <div class="col-md-4">
+                                                        <p></p>
+                                                        <input type="hidden" value="@User.Identity.Name" data="@User.Identity.Name" name="UserName" />
+                                                        <input type="hidden" value="@Model.ShopId" data="@Model.ShopId" name="proid" />
+                                                        <img id="imgCourse" class="thumbnail" src="/UserAvatar/Defult.jpg" />
+                                                        <div class="form-group">
+                                                            <label>انتخاب تصویر</label>
+                                                            <input type="file" name="imgCourseUp" id="imgCourseUp">
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                    <input type="submit" value="Send File" onclick="SendMsg()" class="btn btn-primary" />
+                                                </div>
+
+                                            </form>
+                                            <br />
+                                            <div class="row">
+                                                <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                                                    <div class="bg-light">
+                                                        <div class="carousel-item active">
+                                                            @foreach (var item in ViewBag.upload)
+                                                            {
+                                                                <div class="col-md-3 col-lg-4">
+                                                                    <img src="~/WS/@(item.Name)" alt="Image" style="width:150px;display: block;">
+                                                                    <br />
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                @if (ViewBag.GroupId == 1)
+                                {
+
+                                    <div class="col-md-12 col-12">
+                                        <h2>اطلاعات <span style="color: #FFD333"> </span></h2>
+                                        <hr />
+                                        <div class="form-group ">
+                                            <label>اسم </label>
+                                            <input type="text" id="textUsername" class="form-control" />
+                                            <br />
+                                            <input type="button" class="btn btn-primary" value="Connect" onclick="connect()" />
+                                        </div>
+                                        <div class="form-group ">
+                                            <label> به شخص مورد نظر </label>
+                                            <input type="text" id="txtRecvier" class="form-control" />
+                                        </div>
+                                        <div class="form-group ">
+                                            <label>پیام </label>
+                                            @* <input type="text" id="txtmsg" />*@@*
+                                            <textarea class="form-control" rows="10" id="txtmsg"></textarea>
+                                        </div>
+                                        <input type="button" class="btn btn-primary" value="Send" onclick="SendMsg()" />
+                                        <br />
+                                        <div class="col-lg-2 mb-30">
+                                        </div>
+                                        <input type="button" class="btn btn-primary px-3" asp-controller="Home" asp-action="saveMessage" value="close connection" onclick="Closews()" />
+                                        <br />
+
+
+                                        <form method="post" asp-action="uploader" asp-controller="Home" enctype="multipart/form-data">
+                                            <div>
+                                                <div class="col-md-4">
+                                                    <p></p>
+                                                    <input type="hidden" value="@User.Identity.Name" data="@User.Identity.Name" name="UserName" />
+                                                    <input type="hidden" value="@Model.ShopId" data="@Model.ShopId" name="proid" />
+                                                    <img id="imgCourse" class="thumbnail" src="/UserAvatar/Defult.jpg" />
+                                                    <div class="form-group">
+                                                        <label>انتخاب تصویر</label>
+                                                        <input type="file" name="imgCourseUp" id="imgCourseUp">
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <input type="submit" value="Send File" onclick="SendMsg()" class="btn btn-primary" />
+                                            </div>
+
+                                        </form>
+                                        <br />
+                                        <div class="row">
+                                            <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                                                <div class="bg-light">
+                                                    <div class="carousel-item active">
+                                                        @foreach (var item in ViewBag.upload)
+                                                        {
+                                                            <div class="col-md-3 col-lg-4">
+                                                                <img src="~/WS/@(item.Name)" alt="Image" style="width:150px;display: block;">
+                                                                <br />
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }*@
+                                @if (ViewBag.GroupId == 3)
+                                {
+
+                                    <div class="col-md-12 col-12">
+                                        <h2>اطلاعات <span style="color: #FFD333"> </span></h2>
+                                        <hr />
+                                        <div class="form-group ">
+                                            <label>اسم </label>
+                                            <input type="text" id="textUsername" class="form-control" />
+                                            <br />
+                                            <input type="button" class="btn btn-primary" value="Connect" onclick="connect()" />
+                                        </div>
+                                        <div class="form-group ">
+                                            <label> به شخص مورد نظر </label>
+                                            <input type="text" id="txtRecvier" class="form-control" />
+                                        </div>
+                                        <div class="form-group ">
+                                            <label>پیام </label>
+                                            @* <input type="text" id="txtmsg" />*@
+                                            <textarea class="form-control" rows="10" id="txtmsg"></textarea>
+                                        </div>
+                                        <input type="button" class="btn btn-primary" value="Send" onclick="SendMsg()" />
+                                        <br />
+                                        <div class="col-lg-2 mb-30">
+                                        </div>
+                                        <form id="myForm" method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="saveMessage">
+                                            <input type="button" class="btn btn-primary px-3" value="close connection" onclick="Closews()" />
+                                        </form>
+
+                                        <br />
+
+
+                                        <form method="post" asp-action="uploader" asp-controller="Home" enctype="multipart/form-data">
+                                            <div>
+                                                <div class="col-md-4">
+                                                    <p></p>
+                                                    <input type="hidden" value="@User.Identity.Name" data="@User.Identity.Name" name="UserName" />
+                                                    <input type="hidden" value="@Model.ShopId" data="@Model.ShopId" name="proid" />
+                                                    <img id="imgCourse" class="thumbnail" src="/UserAvatar/Defult.jpg" />
+                                                    <div class="form-group">
+                                                        <label>انتخاب تصویر</label>
+                                                        <input type="file" name="imgCourseUp" id="imgCourseUp">
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <input type="submit" value="Send File" onclick="SendMsg()" class="btn btn-primary" />
+                                            </div>
+
+                                        </form>
+                                        <br />
+                                        <div class="row">
+                                            <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                                                <div class="bg-light">
+                                                    <div class="carousel-item active">
+                                                        @foreach (var item in ViewBag.upload)
+                                                        {
+                                                            <div class="col-md-3 col-lg-4">
+                                                                <img src="~/WS/@(item.Name)" alt="Image" style="width:150px;display: block;">
+                                                                <br />
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+
+
+                                <div class="form-group ">
+                                    <div id="divshow" class="show"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+<!-- Shop Detabgrrtfil End -->
+@section Scripts
+    {
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script>
+
+        CKEDITOR.replace('Sll', {
+            customConfig: '/js/Config.js'
+        });
+
+        var permission;
+        var ws;
+        function connect() {
+            alert("ali");
+            var txtUsername = document.getElementById("textUsername");
+            permission = txtUsername;
+            var uri = "wss://localhost:44349/wschat?name=" + txtUsername.value;
+
+            ws = new WebSocket(uri);
+            ws.onopen = function() {
+                var divshow = document.getElementById("divshow");
+                divshow.innerHTML += "Connected";
+            }
+
+            ws.onmessage = function(inData) {
+                var dishow = document.getElementById("divshow");
+                divshow.innerHTML += "<br/>" + inData.data;
+            }
+
+            ws.onerror = function() {
+                var divshow = document.getElementById("divshow");
+                divshow.innerHTML += "<br/>" + "خطا در دریافت اطلاعات";
+            }
+
+        }
+
+        function SendMsg() {
+
+            var txtmesg = document.getElementById("txtmsg");
+            var txtReciver = document.getElementById("txtRecvier")
+            if (@ViewBag.GroupId == 2) {
+                txtReciver = permission;
+            }
+            ws.send(JSON.stringify({ Recive: txtReciver.value, Message: txtmesg.value }));
+            txtmsg.value = "";
+
+        }
+
+        function Closews() {
+            alert("Close connection");
+            var txtUsername = document.getElementById("textUsername");
+            var divshow = document.getElementById("divshow");
+            ws.Close(1000, "close web socket");
+
+        }
+
+        function SendFile() {
+            ws.binaryType = "arraybuffer";
+            var file = document.getElementById("Fileuploder").files[0];///////////////////////////////////////
+            var Freader = new FileReader();
+            Freader.onload = function() {
+                ws.Send(Freader.result);
+            }
+            if (file) {
+                Freader.readAsArrayBuffer(file);
+            }
+        }
+
+
+    </script>
+}

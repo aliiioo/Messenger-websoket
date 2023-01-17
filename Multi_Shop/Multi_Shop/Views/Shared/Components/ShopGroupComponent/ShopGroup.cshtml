@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Multi_Shop.Context.Entites.ShopGroup>
+<div class="navbar-nav w-100">
+    @foreach (var group in Model.Where(g => g.ParentId == null))
+    {
+        <a asp-action="Products" asp-controller="Home" asp-route-pageId="1" asp-route-Filter="" asp-route-groupId="@group.GroupId" asp- class="nav-item nav-link">@group.GroupTitle</a>
+    }
+</div>
